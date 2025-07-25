@@ -12,3 +12,11 @@ git clone http://github.com/timm/moot-code
 cd moot-code
 make  eg0
 ```
+
+| File | Notes|
+|------|------|
+| [Makefile] | 
+| CONTRIBUTE.md | |
+| about.py | |
+| data.py | |
+| lib.py | |
