@@ -1,3 +1,5 @@
+"""
+"""
 import sys, re
 
 BIG = 1E30
@@ -30,3 +32,21 @@ class o:
 def settings(s):
   "Returns a setting for each 'x=y' string within 's'."
   return o(**{k:coerce(v) for k,v in re.findall(r"(\w+)=(\S+)", s)})
+
+def cli(d):
+  "Updated d's slots from  command line."
+  for n,arg in enumerate(sys.argv):
+    for key in d:
+      if arg == "-"+key[0]: 
+        d[key] = coerce(sys.argv[n+1])
+  return d
+
+def main(oConfig, fns):
+  "Update settings from CLI, run any eg functions."
+  cli(oConfig.__dict__)
+  for arg in sys.argv:
+    if (fn := fns.get(f"eg{arg.replace('-', '_')}")):
+      random.seed(oConfig.__dict__.get("seed",1234567891))
+      fn() 
+
+
